@@ -30,10 +30,10 @@ class LeastLevelCategoryCollectionProvider
         $collection = $this->categoryCollectionFactory->create();
 
         $collection->addAttributeToSelect('*')
+            ->setStoreId($storeId)
             ->addIsActiveFilter()
             ->addUrlRewriteToResult()
             ->addIdFilter($categoryIds)
-            ->setStoreId($storeId)
             ->addOrder('level', Collection::SORT_ORDER_ASC)
             ->setPageSize(self::PAGE_LIMIT);
 

@@ -54,6 +54,6 @@ class UrlProvider implements AttributeHandlerInterface
         ];
 
         $this->url->setScope($store);
-        return $this->url->getUrl('', $routeParamsShort);
+        return $this->url->getRouteUrl(null,$routeParamsShort);
     }
 }

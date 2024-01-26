@@ -8,6 +8,7 @@ use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\Product\Type;
 use Magento\Framework\Exception\NoSuchEntityException;
 use RunAsRoot\GoogleShoppingFeed\Registry\FeedRegistry;
+use Magento\Catalog\Model\Product\Visibility;
 
 class ParentProductProvider
 {
@@ -16,10 +17,11 @@ class ParentProductProvider
     private ParentProductIdProvider $parentProductIdProvider;
 
     public function __construct(
-        FeedRegistry          $registry,
-        ProductProvider       $productProvider,
+        FeedRegistry            $registry,
+        ProductProvider         $productProvider,
         ParentProductIdProvider $parentProductIdProvider
-    ) {
+    )
+    {
         $this->registry = $registry;
         $this->productProvider = $productProvider;
         $this->parentProductIdProvider = $parentProductIdProvider;
@@ -31,6 +33,9 @@ class ParentProductProvider
             return $product;
         }
 
+        if ($product->getTypeId() == Type::TYPE_SIMPLE && $product->getVisibility() !== Visibility::VISIBILITY_NOT_VISIBLE) {
+            return $product;
+        }
         $parentProductId = $this->parentProductIdProvider->get((int)$product->getId());
 
         if ($parentProductId === null) {

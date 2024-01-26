@@ -24,7 +24,8 @@ class FileReader
         UrlInterface              $urlBuilder,
         FilesystemIteratorFactory $filesystemIteratorFactory,
         DateTime                  $dateTime
-    ) {
+    )
+    {
         $this->urlBuilder = $urlBuilder;
         $this->filesystemIteratorFactory = $filesystemIteratorFactory;
         $this->dateTime = $dateTime;
@@ -44,7 +45,7 @@ class FileReader
 
         try {
             $dir = $this->filesystemIteratorFactory->create([
-                'path' => DirectoryList::MEDIA . DIRECTORY_SEPARATOR . $this->destination,
+                'directory' => DirectoryList::MEDIA . DIRECTORY_SEPARATOR . $this->destination,
                 'flags' => FilesystemIterator::SKIP_DOTS,
             ]);
         } catch (\UnexpectedValueException $exception) {
@@ -52,7 +53,7 @@ class FileReader
         }
 
         $result = [];
-        $storeMediaUrl = $this->urlBuilder->getBaseUrl([ '_type' => UrlInterface::URL_TYPE_MEDIA ]);
+        $storeMediaUrl = $this->urlBuilder->getBaseUrl(['_type' => UrlInterface::URL_TYPE_MEDIA]);
 
         while ($dir->valid()) {
             if (!$dir->isDir()) {

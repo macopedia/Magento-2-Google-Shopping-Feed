@@ -22,9 +22,10 @@ class CategoryUrlProvider implements AttributeHandlerInterface
 
     public function __construct(
         LeastLevelCategoryCollectionProvider $leastLevelCategoryCollectionProvider,
-        AllowedCategoryIdsProvider $categoryIdsProvider,
-        UrlInterface $url
-    ) {
+        AllowedCategoryIdsProvider           $categoryIdsProvider,
+        UrlInterface                         $url
+    )
+    {
         $this->leastLevelCategoryCollectionProvider = $leastLevelCategoryCollectionProvider;
         $this->categoryIdsProvider = $categoryIdsProvider;
         $this->url = $url;
@@ -53,6 +54,6 @@ class CategoryUrlProvider implements AttributeHandlerInterface
         }
 
         $requestPath = $item->getRequestPath();
-        return $this->url->getDirectUrl($requestPath, [ '_scope' => $storeId ]);
+        return $this->url->getDirectUrl($requestPath, ['_scope' => $storeId]);
     }
 }
