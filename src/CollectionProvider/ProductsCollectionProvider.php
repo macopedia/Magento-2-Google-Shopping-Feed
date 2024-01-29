@@ -25,10 +25,10 @@ class ProductsCollectionProvider
         $collection = $this->productCollectionFactory->create();
 
         $collection->addAttributeToSelect('*')
+            ->addStoreFilter($storeId)
             ->addAttributeToFilter('status', self::STATUS_ENABLED)
             ->addCategoriesFilter([ 'in' => $categories ])
             ->addMediaGalleryData()
-            ->addStoreFilter($storeId)
             ->setPageSize(self::BATCH_SIZE)
             ->setCurPage($page);
 

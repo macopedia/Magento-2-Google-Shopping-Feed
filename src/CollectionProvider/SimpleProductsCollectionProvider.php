@@ -25,11 +25,11 @@ class SimpleProductsCollectionProvider
         $collection = $this->productCollectionFactory->create();
 
         $collection->addAttributeToSelect('*')
+            ->addStoreFilter($storeId)
             ->addAttributeToFilter('type_id', 'simple')
             ->addAttributeToFilter('status', self::STATUS_ENABLED)
             ->addCategoriesFilter([ 'in' => $categories ])
             ->addMediaGalleryData()
-            ->addStoreFilter($storeId)
             ->setPageSize(self::BATCH_SIZE)
             ->setCurPage($page);
 
