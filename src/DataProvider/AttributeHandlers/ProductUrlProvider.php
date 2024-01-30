@@ -16,10 +16,11 @@ class ProductUrlProvider implements AttributeHandlerInterface
     private UrlSuffixProvider $urlSuffixProvider;
 
     public function __construct(
-        Url $url,
+        Url                   $url,
         ParentProductProvider $productProvider,
-        UrlSuffixProvider $urlSuffixProvider
-    ) {
+        UrlSuffixProvider     $urlSuffixProvider
+    )
+    {
         $this->url = $url;
         $this->productProvider = $productProvider;
         $this->urlSuffixProvider = $urlSuffixProvider;
@@ -40,6 +41,7 @@ class ProductUrlProvider implements AttributeHandlerInterface
             '_nosid' => true,
         ];
 
-        return $this->url->getUrl('', $routeParamsShort);
+        $this->url->setScope($product->getStoreId());
+        return $this->url->getRouteUrl(null, $routeParamsShort);
     }
 }
