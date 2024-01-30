@@ -19,9 +19,9 @@ class UrlProvider implements AttributeHandlerInterface
     private ChildProductParamsProvider $childProductParamsProvider;
 
     public function __construct(
-        Url                        $url,
-        StoreManagerInterface      $storeManager,
-        ParentProductProvider      $productProvider,
+        Url $url,
+        StoreManagerInterface $storeManager,
+        ParentProductProvider $productProvider,
         ChildProductParamsProvider $childProductParamsProvider
     ) {
         $this->url = $url;
@@ -42,18 +42,18 @@ class UrlProvider implements AttributeHandlerInterface
         $queryParams = $this->childProductParamsProvider->get($product, $productForUrlRetrieval);
 
         if ($queryParams !== null) {
-            $query = array_merge([ '___store' => null ], $queryParams);
+            $query = array_merge(['___store' => null], $queryParams);
         }
 
         $routeParamsShort = [
             '_direct' => $productForUrlRetrieval->getUrlKey(),
             '_nosid' => true,
-            '_query' => $query ?? [ '___store' => null ],
+            '_query' => $query ?? ['___store' => null],
             '_scope_to_url' => true,
             '_scope' => $this->url->getData('scope'),
         ];
 
-        $this->url->setScope($store);
-        return $this->url->getRouteUrl(null,$routeParamsShort);
+        $this->url->setScope($product->getStoreId());
+        return $this->url->getRouteUrl(null, $routeParamsShort);
     }
 }
